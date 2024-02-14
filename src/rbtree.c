@@ -244,6 +244,7 @@ void transplant(rbtree *t, node_t *node_del, node_t *node_sub) {
   node_sub->parent = node_del->parent;
 }
 
+
 node_t *subtree_find_min(rbtree *t, node_t *curr) {
   if(curr == NULL) {
     return NULL;
@@ -333,8 +334,8 @@ int rbtree_erase(rbtree *t, node_t *curr) {
     return -1;
   }
 
-  node_t *node_rep;
-  node_t *node_ref = curr;
+  node_t *node_rep; // successor
+  node_t *node_ref = curr; // 삭제 노드
   int o_color = node_ref->color;
 
   if(curr->left == t->nil) {
@@ -382,13 +383,13 @@ int rbtree_erase(rbtree *t, node_t *curr) {
   return 0;
 }
 
-
+// left - now - right 중위순회
 void inorder_trav(const rbtree *t, key_t *arr, const size_t n, node_t *node, int *count) {
   if(node == NULL) {
     return;
   }
 
-  // base
+  // 종료
   if(node == t->nil) {
     return;
   }
